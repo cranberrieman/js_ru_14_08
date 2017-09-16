@@ -1,6 +1,6 @@
 import {
     INCREMENT, DELETE_ARTICLE, CHANGE_DATE_RANGE, CHANGE_SELECTION, ADD_COMMENT, LOAD_ALL_ARTICLES, LOAD_ARTICLE,
-    LOAD_ARTICLE_COMMENTS, START, SUCCESS, FAIL
+    LOAD_ARTICLE_COMMENTS, LOAD_PAGE_COMMENTS, START, SUCCESS, FAIL, COMMENTS_PER_PAGE
 } from '../constants'
 
 export function increment() {
@@ -84,5 +84,13 @@ export function loadArticleById(id) {
                     error
                 }))
         }, 1000)
+    }
+}
+
+export function loadPageComments(page) {
+    return {
+        type: LOAD_PAGE_COMMENTS,
+        payload: { page },
+        callAPI: `/api/comment?limit=${COMMENTS_PER_PAGE}&offset=${COMMENTS_PER_PAGE * (page - 1)}`
     }
 }
